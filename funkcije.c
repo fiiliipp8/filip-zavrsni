@@ -17,10 +17,10 @@ void ispis_izbornika() {
 }
 
 
-void igraci_prve() {
+void igraci_domace() {
 	FILE* pokazivacDatoteke = fopen("igraci.txt", "a");
 	if (pokazivacDatoteke == NULL) {
-		printf("Ne mogu otvoriti dadoteku\n");
+		perror("Ne mogu otvoriti dadoteku\n"); 
 		return;
 	}
 	IGRAC c;
@@ -38,4 +38,26 @@ void igraci_prve() {
 	fclose(pokazivacDatoteke);
 	printf("Igrac dodan.\n");
 }
+void igraci_gostujuce() {
+	FILE* pokazivacDatoteke = fopen("igraci.txt", "a");
+	if (pokazivacDatoteke == NULL) {
+		perror("Ne mogu otvoriti dadoteku\n"); 
+		return;
+	}
+	IGRAC c;
+	
+	printf("Unesite ime: ");
+	scanf("%s", c.ime);
+	printf("Unesite prezime: ");
+	scanf("%s", c.prezime);
+	printf("Unesite broj: ");
+	scanf("%s", c.broj);
+	
+	
+	fwrite(&c, sizeof(c), 1, pokazivacDatoteke);
+
+	fclose(pokazivacDatoteke);
+	printf("Igrac dodan.\n");
+}
+
 
