@@ -1,9 +1,11 @@
 //3.
 //4.
+//5.
 //6.
 //8.
 //10.
 //16.
+//18.
 //19.
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
@@ -15,8 +17,9 @@ int main() {
 	int izbor;
 	do {
 		ispis_izbornika();
-		printf("Unesite izbor: ");
+		
 		scanf("%d", &izbor);
+
 		switch (izbor) {
 		case 1:
 			igraci_domace();
@@ -25,16 +28,11 @@ int main() {
 			igraci_gostujuce();
 			break;
 		case 3:
-			mjesto_igranja();
+			ispisi_igrace();
 			break;
 		case 4:
-			vrijeme_pocetka();
+			izbrisi_igraca();
 			break;
-		case 5;
-			strijelci();
-			break;
-		case 6;
-			konacni_rezultat();
 		default:
 			printf("Neispravan izbor\n");
 			break;
