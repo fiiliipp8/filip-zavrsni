@@ -7,57 +7,120 @@
 
 void ispis_izbornika() {
 
-	printf("ZAPNISNIK NOGOMETNE UTAKMICE\n");
+	printf("***ZAPNISNIK NOGOMETNE UTAKMICE***\n");
 	printf("1. Unesi igrace domace momcadi\n");
 	printf("2. Unesi igrace gostujuce momcadi\n");
-	printf("3. Unesi mjesto igranja utakmice\n");
-	printf("4. Unesi vrijeme pocetka utakmice\n");
-	printf("5. Unesi strijelce\n");
-	printf("6. Unesi konacni rezultat\n");
+	printf("3. Ispisi igrace\n");
+	printf("4. Obrisi igraca\n");
+
 }
 
 
 void igraci_domace() {
-	FILE* pokazivacDatoteke = fopen("igraci.txt", "a");
+	FILE* pokazivacDatoteke = fopen("igracii.txt", "a");
 	if (pokazivacDatoteke == NULL) {
-		perror("Ne mogu otvoriti dadoteku\n"); 
+		perror("Ne mogu otvoriti dadoteku\n");
 		return;
 	}
 	IGRAC c;
-	
-	printf("Unesite ime: ");
+
+	printf("Unesite ime igraca: ");
 	scanf("%s", c.ime);
-	printf("Unesite prezime: ");
+	fprintf(pokazivacDatoteke, c.ime);
+	fprintf(pokazivacDatoteke, "\n");
+	printf("Unesite prezime igraca: ");
 	scanf("%s", c.prezime);
-	printf("Unesite broj: ");
-	scanf("%s", c.broj);
-	
-	
-	fwrite(&c, sizeof(c), 1, pokazivacDatoteke);
+	fprintf(pokazivacDatoteke, c.prezime);
+	fprintf(pokazivacDatoteke, "\n");
+
+	printf("Unesite broj igraca: ");
+	scanf("%d", c.broj);
+	fprintf(pokazivacDatoteke, c.broj);
+	fprintf(pokazivacDatoteke, "\n");
+
 
 	fclose(pokazivacDatoteke);
 	printf("Igrac dodan.\n");
 }
+
 void igraci_gostujuce() {
-	FILE* pokazivacDatoteke = fopen("igraci.txt", "a");
+	FILE* pokazivacDatoteke = fopen("igracii.txt", "a");
 	if (pokazivacDatoteke == NULL) {
-		perror("Ne mogu otvoriti dadoteku\n"); 
+		perror("Ne mogu otvoriti dadoteku\n");
 		return;
 	}
 	IGRAC c;
-	
-	printf("Unesite ime: ");
+
+	printf("\nUnesite ime igraca: ");
 	scanf("%s", c.ime);
-	printf("Unesite prezime: ");
+	fprintf(pokazivacDatoteke, c.ime);
+	fprintf(pokazivacDatoteke, "\n");
+	printf("\nUnesite prezime igraca: ");
 	scanf("%s", c.prezime);
-	printf("Unesite broj: ");
-	scanf("%s", c.broj);
-	
-	
-	fwrite(&c, sizeof(c), 1, pokazivacDatoteke);
+	fprintf(pokazivacDatoteke, c.prezime);
+	fprintf(pokazivacDatoteke, "\n");
+
+	printf("\nUnesite broj igraca: ");
+	scanf("%d", c.broj);
+	fprintf(pokazivacDatoteke, c.broj);
+	fprintf(pokazivacDatoteke, "\n");
+
 
 	fclose(pokazivacDatoteke);
 	printf("Igrac dodan.\n");
+}
+
+void ispisi_igrace() {
+	FILE* pokazivacDatoteke = fopen("igracii.txt", "r"); 
+	if (pokazivacDatoteke == NULL) {
+		printf("Ne mogu otvoriti dadoteku\n");
+		return;
+	}
+	IGRAC c;
+
+
+	static char citanjeDatoteke[5000];
+	while (!feof(pokazivacDatoteke))
+	{
+		fgets(citanjeDatoteke, 5000, pokazivacDatoteke);
+		puts(citanjeDatoteke);
+	}
+
+	fclose(pokazivacDatoteke);
+}
+
+
+void izbrisi_igraca() {
+	char imeDat[] = "igracii.txt";
+	char imeZaObrisat[20];
+
+	printf("Unesite ime igraca kojega zelite izbrisati: ");
+	scanf("%s", imeZaObrisat);
+
+	FILE* fp = fopen(imeDat, "r+");
+	if (fp == NULL) {
+		printf("Ne moze se otvoriti datoteka %s\n", imeDat);
+		return 1;
+	}
+
+
+	char tempFilename[] = "temp.txt";
+	FILE* tempFp = fopen(tempFilename, "w");
+	char line[100];
+	while (fgets(line, 100, fp) != NULL) {
+		char* token = strtok(line, ",");
+		if (strcmp(token, imeZaObrisat) != 0) {
+			fputs(line, tempFp);
+		}
+	}
+
+	fclose(fp);
+	fclose(tempFp);
+
+	remove(imeDat);
+	rename(tempFilename, imeDat);
+
+	printf("Igrac %s je uspijesno obrisan.\n", imeZaObrisat);
 }
 
 
