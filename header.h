@@ -1,20 +1,15 @@
-#pragma once
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef MYHEADER
+#define MYHEADER
 
-typedef struct igrac {
-
-	char ime[20];
-	char prezime[20];
-	int broj;
-
+typedef struct IGRAC { //2 //3
+	unsigned int brojac;
+	char Ime[51];
+	char Prezime[51];
+	char brojDresa[2];
+	struct igrac* nextNode;
 }IGRAC;
 
-void ispis_izbornika();
-void igraci_domace();
-void igraci_gostujuce();
-void ispisi_igrace();
-void izbrisi_igraca();
+void kreiranje(char* datoteka, unsigned int* pBrojIgraca);
+void glavniIzbornik(char* datoteka, unsigned int* BrojIgraca);
 
-
-#endif
+#endif 
