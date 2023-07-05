@@ -7,12 +7,12 @@
 
 int main(void) {
 
-	char* fp = "clanovi.bin"; //16
-	unsigned int IGRACNumber = 0;
+	char* fp = "clanovi.bin"; 
+	unsigned int brojIgraca = 0;
 
-	kreiranje(fp, &IGRACNumber); //10
+	kreiranje(fp, &brojIgraca); 
 
-	glavniIzbornik(fp, &IGRACNumber);
+	glavniIzbornik(fp, &brojIgraca);
 
 	return 0;
 }
