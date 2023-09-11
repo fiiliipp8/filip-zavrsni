@@ -73,6 +73,20 @@ void glavniIzbornik(char* datoteka, unsigned int* brojIgraca) {
 			sortiranjeImena(datoteka, brojIgraca);
 
 			break;
+
+		case 6:
+			printf("\n\t\tBrisanje svih igraca\n\n");
+			printf("Jeste li sigurni da zelite izbrisati sve igrace(D/N)\n");
+			char izbor[2] = { '\0' };
+			scanf(" %s", izbor);
+			if (!strcmp("D", izbor)) {
+
+				remove(datoteka); //18
+				printf("Svi igraci su izbrisani, pravljenje nove datoteke!");
+				*brojIgraca = 0;
+				kreiranje(datoteka, brojIgraca);
+			}
+			break;
 		
 		case 0:
 			printf("\nIzlaz...\n\n");
@@ -98,6 +112,7 @@ void pocetniIzbornik() {
 	printf("3. Pretrazivanje igraca\n");
 	printf("4. Uredivanje igraca\n");
 	printf("5. Sortiranje imena\n");
+	printf("6. Brisanje svih igraca\n");
 	printf("0. Izlaz\n");
 	printf("Odabir: ");
 }
